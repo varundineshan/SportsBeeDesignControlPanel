@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Sports Bee Score Board</title>
+    <link rel='stylesheet' href='style.css'>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body id="background">
+    <section>
+    	
+    	<div class='container-fluid'>
+    		<div class='container'>
+    			<div class='row'>
+    				<div class='col-sm-offset-2 col-sm-8' id="leftbox">
+    						<div class='box' id="boxer">
+    							<div class='score'>
+    								<h1 id='scorecolor'>3 - 1</h1>	
+    							</div>	
+    							<div class='teamBox team1 text-center'>
+    								<div class='teamLogo'>
+    									<img src='barca.png' class='img-responsive' style="width:150px;height:150px;" id='teambadge1'>
+    								</div>
+    								<div class='teamStatus'>
+    									<h2 id='teamname1'>Barcalona<span>(win)</span></h2>
+    								</div>
+    								<div class='goal' id='players1'> 
+    								<ul id='play1'>
+    									<li>Messi (9')</li>
+    									<li>Messi (19')</li>
+    									<li>Messi (73')</li>
+    								</ul>
+    								</div>
+    							</div>	
+
+								<div class='teamBox team2 text-center'>
+    								<div class='teamLogo'>
+    									<img src='real.png' class='img-responsive' style="width:150px;height:150px;" id='teambadge2'>
+    								</div>
+    							<div class='teamStatus'>
+    								<h2 id='teamname2'>Real Madrid<span>(Loss)</span></h2>
+    							</div>
+    							<div class='goal' id='players2'> 
+    								<ul>
+    									<li>Benzi (91')</li>
+    								</ul>
+    							</div>
+    							</div>
+    						</div>			
+    					</div>
+    					<div id='rightbox' class='border border-success rounded-sm'>
+   
+
+<!-- option screen to make changes---------------------------------------------- -->
+<div class="input-group">
+  <select class="custom-select" id="fontsizes">
+    <option selected>Change Font Size</option>
+    <option value="scorecolor">Score Font</option>
+    <option value="teamname1">Team 1 Size</option>
+    <option value="teamname2">Team 2 Size</option>
+    <option value="players1">Player 1 Size</option>
+    <option value="players2">Player 2 Size</option>
+  </select>
+  <div class="input-group-append">
+  	<button class="btn btn-outline-secondary" type="button" onclick="changeFontSize(this)" id="button2">Decrease</button>
+    <button class="btn btn-outline-secondary" type="button" onclick="changeFontSize(this)" id="button1">Increase</button>
+  </div>
+</div>
+<hr>
+<div class="input-group">
+  <select class="custom-select" id="imagesizes">
+    <option selected>Change Image Size</option>
+    <option value="teambadge1">Team 1 Badge</option>
+    <option value="teambadge2">Team 2 Badge</option>
+  </select>
+  <div class="input-group-append">
+  	<button class="btn btn-outline-secondary" type="button" onclick="changeImageSize(this)" id="btndec">Decrease</button>
+    <button class="btn btn-outline-secondary" type="button" onclick="changeImageSize(this)" id="btninc">Increase</button>
+  </div>
+</div>
+<hr>
+
+<div style="text-align:center;width:auto;">
+  <button  class="btn btn-outline-secondary" type="button" onclick="moveup(this)" id="brnup">UP</button><br><br>
+  <button  class="btn btn-outline-secondary" type="button" onclick="moveteam(this)" id="brnleft">LEFT</button>
+
+
+  <select class="custom-select" id="moveitem" style="text-align:center;width:1px;">
+    <option selected>Change Font Size</option>
+    <option value="teamname1">Team 1 Name</option>
+    <option value="teamname2">Team 2 Name</option>
+    <option value="teamname2">Team 2 Size</option>
+    <option value="players1">Player 1 Size</option>
+    <option value="players2">Player 2 Size</option>
+  </select>
+
+  <button  class="btn btn-outline-secondary" type="button" onclick="moveup(this)" id="brnright">RIGHT</button><br><br>
+  <button  class="btn btn-outline-secondary" type="button" onclick="moveup(this)" id="brndown">DOWN</button>
+</div>
+
+<hr>
+<div class="input-group">
+  <select class="custom-select" id="fontcolor">
+    <option selected>Change Font Color</option>
+    <option value="scorecolor">Score Font</option>
+    <option value="teamname1">Team 1 Font</option>
+    <option value="teamname2">Team 2 Font</option>
+    <option value="play1">Player 1 Font</option>
+    <option value="players2">Player 2 Font</option>
+    <option value="boxer">BackGround Color</option>
+  </select> 
+ <input type='color' id='selectedcolor'">
+  <button  class="btn btn-outline-secondary" type="button" onclick="changecolor(this)" id="change">change</button>
+
+
+</div>
+<hr>
+<!-- code for changing background image -->
+<!-- <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" onclick="changebackground(this)">Upload</span>
+  </div>
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" id="myfile"
+      aria-describedby="inputGroupFileAddon01">
+    <label class="custom-file-label" for="myfile">Choose file</label>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+   </div>
+    		</div>	
+    	</div>
+    </div>
+
+    </section>
+    
+ 
+
+<!--  //-----------------------------------------------------------------script font size --> 
+ <script type="text/javascript">
+	function changeFontSize(target) {
+var x = document.getElementById("fontsizes").selectedIndex;
+		 // alert(document.getElementsByTagName("option")[x].value);
+  var demo = document.getElementById(document.getElementsByTagName("option")[x].value);
+  var computedStyle = window.getComputedStyle
+        ? getComputedStyle(demo) // Standards
+        : demo.currentStyle;     // Old IE
+  var fontSize;
+
+  if (computedStyle) { // This will be true on nearly all browsers
+      fontSize = parseFloat(computedStyle && computedStyle.fontSize);
+
+      if (target == document.getElementById("button1")) {
+      	
+        fontSize += 5;
+      } else if (target == document.getElementById("button2")) {
+        fontSize -= 5;
+
+      }
+      demo.style.fontSize = fontSize + "px";
+  }
+}
+// --------------------------------------------------------------------------- image size
+function changeImageSize(target) {
+var x = document.getElementById("imagesizes");
+
+ var myImg = document.getElementById(x.value);
+
+		 // alert(document.getElementsByTagName("option")[x].value);
+  //var wider = document.getElementById(document.getElementsByTagName("option")[x].value);
+  var currWidth = myImg.clientWidth;
+  var currHeight = myImg.clientHeight;
+
+  if (target == document.getElementById("btninc")) {
+  	
+		currWidth += 25;
+		currHeight += 25;
+      } else if (target == document.getElementById("btndec")) {
+      	
+         currWidth -= 25;
+         currHeight -= 25;
+      }
+       myImg.style.width= currWidth + "px";
+        myImg.style.height= currHeight + "px";
+      
+  }
+
+
+//---------------------------------------------------------------------------------------------------
+
+function moveup(target) {
+let circle = document.querySelector('.score');
+// var x = document.getElementById("moveitem");
+
+// let circle = document.getElementById(x.value);
+
+let moveBy = 10;
+ 
+
+    circle.style.position = 'absolute';
+    circle.style.left = 0;
+    circle.style.top = 0;
+
+ //circle.style.top = parseInt(circle.style.top) - moveBy + 'px';
+ 
+window.addEventListener('keyup', (e) => {
+    switch (e.key) {
+        case 'ArrowLeft':
+            circle.style.left = parseInt(circle.style.left) - moveBy + 'px';
+            break;
+        case 'ArrowRight':
+            circle.style.left = parseInt(circle.style.left) + moveBy + 'px';
+            break;
+        case 'ArrowUp':
+            circle.style.top = parseInt(circle.style.top) - moveBy + 'px';
+            break;
+        case 'ArrowDown':
+            circle.style.top = parseInt(circle.style.top) + moveBy + 'px';
+            break;
+    }
+});
+  }
+
+function moveteam(target) {
+// let circle = document.querySelector('.score');
+var y = document.getElementById("moveitem");
+
+let circles = document.getElementById(y.value);
+
+let moveBy = 10;
+ 
+
+    circles.style.position = 'absolute';
+    circles.style.left = 0;
+    circles.style.top = 0;
+
+ //circle.style.top = parseInt(circle.style.top) - moveBy + 'px';
+ 
+window.addEventListener('keyup', (e) => {
+    switch (e.key) {
+        case 'ArrowLeft':
+            circles.style.left = parseInt(circles.style.left) - moveBy + 'px';
+            break;
+        case 'ArrowRight':
+            circles.style.left = parseInt(circles.style.left) + moveBy + 'px';
+            break;
+        case 'ArrowUp':
+            circles.style.top = parseInt(circles.style.top) - moveBy + 'px';
+            break;
+        case 'ArrowDown':
+            circles.style.top = parseInt(circles.style.top) + moveBy + 'px';
+            break;
+    }
+});
+
+}
+
+function changecolor(target) {
+
+var color=document.getElementById('selectedcolor').value;
+var x = document.getElementById("fontcolor").value;
+
+if(!x.startsWith("boxer"))
+{
+document.getElementById(x).style.color=color;
+}
+else
+{
+document.getElementById("boxer").style.background=color;	
+}
+
+
+// document.getElementById('boxer').seta
+// document.getElementById("boxer").setAttribute("transform", "skew(-15deg)");
+ 
+}
+
+// function changebackground(target) {
+
+// var x = document.getElementById("selectedbgcolor").value;
+
+// // document.getElementById("boxer").style.background="url(real.png)";   //working for background image change
+
+// document.getElementById("boxer").style.background=x;
+// }
+
+
+
+</script>
+</body>
+</html>
